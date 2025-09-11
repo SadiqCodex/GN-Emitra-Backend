@@ -4,10 +4,12 @@ from flask import Blueprint, request, jsonify, current_app
 import os
 import json
 from werkzeug.utils import secure_filename
+from flask_cors import cross_origin
 
 review_bp = Blueprint('review', __name__)
 
 @review_bp.route('/api/review', methods=['POST'])
+@cross_origin(origins=["https://gn-emitra.netlify.app", "http://localhost:5502"])
 def submit_review():
     try:
         data = request.form
@@ -49,6 +51,7 @@ def submit_review():
 
 
 @review_bp.route('/api/review', methods=['GET'])
+@cross_origin(origins=["https://gn-emitra.netlify.app", "http://localhost:5502"])
 def get_reviews():
     try:
         review_file = current_app.config['REVIEW_FILE']
