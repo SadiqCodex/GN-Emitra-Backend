@@ -65,3 +65,13 @@ def get_reviews():
 
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+    
+@review_bp.route('/api/review', methods=['DELETE'])
+def delete_reviews():
+    try:
+        review_file = current_app.config['REVIEW_FILE']
+        with open(review_file, 'w') as f:
+            json.dump([], f)  # Empty list = no reviews
+        return jsonify({"status": "success", "message": "All reviews deleted."}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
