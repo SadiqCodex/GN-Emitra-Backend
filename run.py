@@ -3,8 +3,8 @@ from flask_cors import CORS
 
 app = create_app()
 
-# Enable CORS and specify allowed origin(s)
-CORS(app, resources={r"/*": {"origins": "https://gn-emitra.netlify.app"}})
+# ✅ CORS fix for all routes
+CORS(app, supports_credentials=True, origins="https://gn-emitra.netlify.app")
 
 if __name__ == "__main__":
     import os
