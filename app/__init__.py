@@ -1,26 +1,27 @@
-# app/__init__.py
-
 from flask import Flask, send_from_directory
 from dotenv import load_dotenv
 import os
+from app.extensions.db import init_db   # Database init import
 
-# Load environment variables (for local dev)
+# Load environment variables
 load_dotenv()
 
 def create_app():
     app = Flask(__name__)
 
-    # Configuration from env vars or defaults
+    # Configuration
     app.config['UPLOAD_FOLDER'] = os.getenv("UPLOAD_FOLDER", "uploads")
-    app.config['REVIEW_FILE'] = os.getenv("REVIEW_FILE", "reviews.json")
 
     # Create upload folder if it doesn't exist
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
+    # Initialize database tables
+    init_db()
+
     # Root route
     @app.route('/')
     def home():
-        return "✅ Flask API is running!"
+        return "✅ Flask API is running with Postgres!"
 
     # Serve uploaded images
     @app.route('/uploads/<filename>')
