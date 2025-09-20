@@ -4,13 +4,11 @@ import os
 
 app = create_app()
 
-# Enable CORS
 CORS(app, origins=[
     "http://localhost:5502", 
     "http://127.0.0.1:5502", 
     "https://gn-emitra.netlify.app"
 ], supports_credentials=True)
-
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
