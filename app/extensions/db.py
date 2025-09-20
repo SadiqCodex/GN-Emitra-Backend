@@ -1,9 +1,9 @@
-import psycopg
+import psycopg2
 import os
 
 def get_db_connection():
     """Connect to Postgres database using DATABASE_URL"""
-    conn = psycopg.connect(os.getenv("DATABASE_URL"))
+    conn = psycopg2.connect(os.getenv("DATABASE_URL"))
     return conn
 
 def init_db():
