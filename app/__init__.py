@@ -2,6 +2,7 @@ from flask import Flask, send_from_directory
 from dotenv import load_dotenv
 import os
 from app.extensions.db import init_db  
+from flask_cors import CORS
 
 load_dotenv()
 
@@ -11,6 +12,13 @@ def create_app():
     app.config['UPLOAD_FOLDER'] = os.getenv("UPLOAD_FOLDER", "uploads")
 
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+    # Enable CORS here, before registering blueprints
+    CORS(app, origins=[
+        "https://gn-emitra.netlify.app",
+        "http://localhost:5502",
+        "http://127.0.0.1:5502"
+    ], supports_credentials=True)
 
     init_db()
 
